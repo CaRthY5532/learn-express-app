@@ -21,7 +21,7 @@ docClient.scan(params, function(err, data) {
     console.log("Error throw")
     next(err) }
   else  {
-    res.send(data.items);
+    res.send(data.Items);
     }
   });
   //res.send("List of users are: UNIMPLEMENTED");
