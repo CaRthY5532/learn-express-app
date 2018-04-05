@@ -11,15 +11,21 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 
 /*AWS Dynamo specific Config -- begins */
 
-exports.getUserList = function(req, res) {
+exports.getUserList = function(req, res, next) {
   var params = {
-    TableName: 'userdata',
-    IndexName: 'username',
+    TableName: 'userdata'
   }
-  Select: 'ALL_ATTRIBUTES'
-};
-  res.send("List of users are: UNIMPLEMENTED");
-};
+
+docClient.scan(params, function(err, data) {
+  if (err) {
+    console.log("Error throw")
+    next(err) }
+  else  {
+    res.send(data.items);
+    }
+  });
+  //res.send("List of users are: UNIMPLEMENTED");
+}
 
 exports.addUser = function (req, res) {
   var params = {
